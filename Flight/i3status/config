@@ -1,0 +1,85 @@
+general {
+        output_format = "i3bar"
+        colors = true
+        interval = 2
+		color_good = "#8bc34a"
+		color_degraded = "#ffc107"
+		color_bad = "#cd4934"
+}
+
+order += "wireless wlp3s0"
+order += "ipv6"
+order += "disk /"
+#order += "run_watch DHCP"
+#order += "run_watch VPNC"
+#order += "path_exists VPN"
+#order += "wireless wlan0"
+#order += "ethernet eth0"
+order += "volume master"
+order += "battery 1"
+#order += "cpu_temperature 0"
+#order += "load"
+order += "tztime local"
+#order += "tztime berlin"
+
+volume master {
+		format = "VOL: %volume"
+		device = "pulse"
+		mixer = "Master"
+}
+
+wireless wlp3s0 {
+        format_up = "%essid %ip"
+        format_down = "W: down"
+}
+
+ethernet eth0 {
+        # if you use %speed, i3status requires the cap_net_admin capability
+        format_up = "E: %ip (%speed)"
+        format_down = "E: down"
+}
+
+battery 1 {
+        format = "BAT %percentage"
+        format_down = "No battery"
+        status_chr = "CHR"
+        status_bat = "BAT"
+        status_full = "FULL"
+        path = "/sys/class/power_supply/BAT%d/uevent"
+        low_threshold = 10
+}
+
+run_watch DHCP {
+        pidfile = "/var/run/dhclient*.pid"
+}
+
+run_watch VPNC {
+        # file containing the PID of a vpnc process        pidfile = "/var/run/vpnc/pid"
+}
+
+path_exists VPN {
+        # path exists when a VPN tunnel launched by nmcli/nm-applet is active
+        path = "/proc/sys/net/ipv4/conf/tun0"
+}
+
+tztime local {
+        format = "%a/%d %I:%M %p"
+}
+
+tztime berlin {
+        format = "%Y-%m-%d %H:%M:%S %Z"
+        timezone = "Europe/Berlin"
+}
+
+load {
+        format = "%5min"
+}
+
+cpu_temperature 0 {
+        format = "T: %degrees °C"
+        path = "/sys/devices/platform/coretemp.0/temp1_input"
+}
+
+disk "/" {
+        format = "%free"
+}

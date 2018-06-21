@@ -1,0 +1,137 @@
+### TESTING
+super + p
+	echo "Command run from $DISPLAY" > ~/sxhkdtesting
+
+# Terminal
+super + Return
+	termite
+
+# Rofi
+super + space
+	rofi -show run
+
+# Rofi SSH
+super + s
+	rofi -ssh-command "termite -x \"ssh {host}\"" -show ssh -font "San-Francisco-Display-Regular 11"
+
+# Rofi window switcher
+super + shift + space
+	rofi -show window -font "San-Francisco-Display-Regular 11"
+
+# Reload keybinds
+super + Escape
+	pkill -USR1 -x sxhkd
+
+#
+# Monitor rotation
+#
+super + alt + shift + {Left,Down,Up,Right}
+	xrandr --output eDP1 --rotate {left,inverted,normal,right}
+
+#
+# Screenshot
+#
+Print
+	scrot -d
+
+#
+# BSPWM stuff
+#
+
+# Quit bspwm
+super + alt + Escape
+	exitsession
+
+# Close/kill window
+super + {q,shift + z}
+	bspc node -{c,k}
+
+# Set window type
+super + {t,shift + t,shift + f,f}
+	bspc node -t {tiled,pseudo_tiled,fullscreen,floating}
+
+# Focus node
+super + {Left,Down,Up,Right}
+	bspc node -f {west,south,north,east}
+
+# Focus node
+super + {h,j,k,l}
+	bspc node -f {west,south,north,east}
+
+# move node
+super + shift + {Left,Down,Up,Right}
+	bspc node -s {west,south,north,east}
+
+# Focus/send to desktop
+super + {_,shift + }{1-9,0}
+	bspc {desktop -f,node -d} '^{1-9,10}'
+	{_,bspc desktop -f '^{1-9,10'}
+
+# Swap on desktops
+# Not implemented
+
+# Change window gap
+super + {comma,period}
+	bspc config -d focused window_gap $(calc "{$(bspc config -d focused window_gap) - 6,6 + $(bspc config -d focused window_gap)}")
+	# Calc doesn't work with a negative as the first arg, so I have to switch it around when I want to only subtract. This also prevents window gap going too far below zero
+
+# Reset window gap
+super + slash
+	bspc config -d focused window_gap 16
+
+# Preselect direction
+super + ctrl + {Left,Down,Up,Right}
+	bspc node -p {west,south,north,east}
+
+# Preselect ratio
+super + ctrl + {1-9}
+	bspc node -o 0.{1-9}
+
+# Cancel preselect
+super + ctrl + space
+	for node in $(bspc query -N) ; do bspc node $node -p cancel ; done
+
+# Move floating window
+super + {h,j,k,l}
+	bspc node -v {-30 0,0 30,0 -30,30 0}
+
+# Resize a window (pull edge out)
+super + shift + {h,j,k,l}
+    bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
+
+# Resize a window (pull edge in)
+super + alt + {h,j,k,l}
+    bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
+
+# Lock screen
+super + shift + x
+	/usr/local/bin/lock/lock -t "Type Password" -- scrot -z
+
+#
+# Mouse controls
+#
+
+# Start move/resize
+#super + button{1-3}
+#        bspc pointer -g {move,resize_side,resize_corner}
+
+# Move/Resize
+#super + !button{1-3}
+#    bspc pointer --track %i %i
+
+# End move/resize
+#super + @button{1-3}
+#        bspc pointer -u
+
+#
+# Functionality
+#
+
+XF86Audio{Raise,Lower}Volume
+    pamixer -{i,d} 5
+
+XF86AudioMute
+    pactl set-sink-mute 0 toggle
+
+XF86MonBrightness{Up,Down}
+    xbacklight {-inc,-dec} 10
