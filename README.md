@@ -6,8 +6,8 @@ Each subfolder is a collection of dotfiles for a rice. To use a rice, clone the 
 .config/
  |- dotfiles/
      |- FTL
-	 |- Flight
-	 |- ...
+     |- Flight
+     |- ...
 ```
 
 Then make a symlink to your preferred rice called default in `~/.config/dotfiles/`.
@@ -16,9 +16,9 @@ Then make a symlink to your preferred rice called default in `~/.config/dotfiles
 .config/
  |- dotfiles/
      |- FTL/
-	 |- Flight/
-	 |- ...
-	 |- default -> Flight
+     |- Flight/
+     |- ...
+     |- default -> Flight
 ```
 
 Now change all your config files to be symlinks to their respective file in `~/.config/dotfiles/default/`.
