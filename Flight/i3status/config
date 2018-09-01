@@ -1,11 +1,11 @@
 general {
-        output_format = "i3bar"
-        colors = true
-        interval = 2
-		color_good = "#8bc34a"
-		color_degraded = "#ffc107"
-		color_bad = "#cd4934"
-}
+	output_format = "i3bar"
+	colors = true
+    interval = 2
+	color_good = "#73B254"
+  color_degraded = "#C9B84B"
+  color_bad = "#D25252"
+}	
 
 order += "wireless wlp3s0"
 order += "ipv6"

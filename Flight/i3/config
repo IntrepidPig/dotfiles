@@ -48,7 +48,7 @@ font pango:Fira Sans 9.5
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec --no-startup-id st
+bindsym $mod+Return exec --no-startup-id kitty
 
 # kill focused window
 bindsym $mod+q kill
@@ -168,27 +168,30 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # Window colors
-# class                 border  back       text    indicator child-border
-client.focused          $base00 $base00    $base07 $base0D
-client.focused_inactive $base00 $base00    $base07 $base0D
-client.unfocused        $base08 $base08    $base07 $base0D
-client.urgent           $base00 $base0D    $base00 $base0D
+# class                 border  bground text    indicator child_border
+client.focused          #2B2B2B #CB772F #FFFFFF #6897BB   #CB772f
+client.focused_inactive #1B1B1B #2B2B2B #FFC66D #6897BB   #1B1B1B
+client.unfocused        #1B1B1B #2B2B2B #888888 #6897BB   #1B1B1B
+client.urgent           #2B2B2B #BA3C3C #FFFFFF #6897BB   #BA3C3C
+client.placeholder      #2B2B2B #0C0C0C #FFFFFF #6897BB   #1B1B1B
 
-# Start i3bar to display a workspace bar (plus the system information i3status
-# finds out, if available)
+client.background       #FFFFFF
+
 bar {
-        status_command i3status --config ~/.config/i3status/config
-        colors {
-              separator $base06
-              background $base00
-              statusline $base07
-#                                border  background text
-              focused_workspace  $base00 $base00    $base0F
-              active_workspace   $base00 $base00    $base0F
-              inactive_workspace $base00 $base00    $base06
-              urgent_workspace   $base0D $base00    $base0F
-        }
+	status_command i3status --config ~/.config/i3status/config	
+	colors {
+		background #2B2B2B
+		statusline #FFFFFF
+		separator  #666666
+		
+		focused_workspace  #2B2B2B #2B2B2B #FE953B
+		active_workspace   #2B2B2B #2B2B2B #FFFFFF
+		inactive_workspace #2B2B2B #2B2B2B #888888
+		urgent_workspace   #2B2B2B #BA3C3C #FFFFFF
+		binding_mode       #2B2B2B #BA3C3C #FFFFFF
+	}
 }
+
 
 #exec --no-startup-id redshift -l 37.93:-122.34
 #exec --no-startup-id conky -d
@@ -201,8 +204,8 @@ bar {
 bindsym XF86AudioRaiseVolume exec --no-startup-id pamixer -i 5
 bindsym XF86AudioLowerVolume exec --no-startup-id pamixer -d 5 
 # Brightness
-bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 10
-bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 10
+bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 5
+bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 5
 # Media player
 bindsym XF86AudioPlay exec --no-startup-id playerctl play
 bindsym XF86AudioPause exec --no-startup-id playerctl pause
@@ -212,4 +215,4 @@ bindsym XF86AudioPrev exec --no-startup-id playerctl previous
 workspace 9 output HDMI1
 
 exec --no-startup-id feh --bg-scale /home/intrepidpig/.config/rices/default/wallpaper
-
+exec --no-startup-id dunst

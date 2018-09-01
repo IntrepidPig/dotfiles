@@ -1,3 +1,6 @@
+audible_bell = false
+urgent_on_bell = false
+
 [colors]
 
 # special
@@ -37,3 +40,4 @@ color14 = #8ec07c
 # white
 color7  = #a89984
 color15 = #ebdbb2
+
